@@ -4,6 +4,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import TestSettings from '@/components/TestSettings';
 import TypingArea from '@/components/TypingArea';
 import { generateText } from '@/utils/textGenerator';
+import Image from 'next/image';
 
 export default function Home() {
   const [text, setText] = useState(generateText(250));
@@ -102,11 +103,14 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gray-900 text-white flex flex-col">
-      <div className="w-full text-left ml-12 pt-12 pb-4">
-        <h1 className="text-5xl font-bold font-mono font-bold mb-2">TypeTastic</h1>
-        <p className="text-gray-400 font-mono font-semibold text-lg">Test your typing speed and accuracy</p>
+      <div className="w-full text-left ml-12 pt-12 pb-4 flex items-center gap-4">
+        <Image src={`/typetastic/logo.svg`} alt="TypeTastic Logo" width={64} height={64} />
+        <div>
+          <h1 className="text-5xl font-bold font-mono font-bold mb-2">TypeTastic</h1>
+          <p className="text-gray-400 font-mono font-semibold text-lg">Test your typing speed and accuracy</p>
+        </div>
       </div>
-      <div className="w-full pt-12 pb-4">
+      <div className="w-full pt-12 pb-4">   
         <TestSettings
           selectedTime={selectedTime}
           onTimeChange={handleTimeChange}
