@@ -1,0 +1,51 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install Dependencies
+        run: npm install --legacy-peer-deps
+
+      - name: Export Static Site
+        run: |
+          # Clean the output directory
+          rm -rf out
+          # Build the site
+          npm run static && npm run deploy
+          # Copy public assets
+          cp -r public/* out/ || true
+          # Create 404.html for better routing
+          cp out/index.html out/404.html
+          # Ensure all static files are in the correct location
+          mkdir -p out/_next/static
+          cp -r .next/static/* out/_next/static/ || true
+          # Copy any additional static files
+          cp -r .next/standalone/* out/ || true
+        env:
+          NEXT_PUBLIC_BASE_PATH: '/typetastic'
+          BASE_PATH: '/typetastic'
+          ASSET_PREFIX: '/typetastic'
+          NODE_ENV: 'production'
+
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: out
+          branch: gh-pages 
