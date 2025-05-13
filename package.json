@@ -6,7 +6,10 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "static": "next build && next export && touch ./out/.nojekyll && echo 'jacobliberty.github.io' > ./out/CNAME",
+    "lint": "next lint",
+    "export": "next build",
+    "deploy": "gh-pages -d out -t true"
   },
   "dependencies": {
     "next": "15.3.2",
