@@ -3,7 +3,7 @@
 const nextConfig = {
   output: 'export',
   basePath: "/typetastic",
-  assetPrefix: "/typetastic",
+  assetPrefix: "/typetastic/",
   images: {
     unoptimized: true,
     dangerouslyAllowSVG: true,
