@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import TestSettings from '@/components/TestSettings';
 import TypingArea from '@/components/TypingArea';
 import { generateText } from '@/utils/textGenerator';
@@ -21,7 +21,7 @@ export default function Home() {
   const getText = () => generateText(250, { includeNumbers, includePunctuation });
 
   // Helper: count completed words
-  function getCompletedWordsCount() {
+  const getCompletedWordsCount = useCallback(() => {
     const inputWords = userInput.trim().split(/\s+/);
     const textWords = text.split(/\s+/);
     let completed = 0;
@@ -33,7 +33,7 @@ export default function Home() {
       }
     }
     return completed;
-  }
+  }, [userInput, text]);
 
   // Start timer on first character
   useEffect(() => {
@@ -75,7 +75,7 @@ export default function Home() {
       const completedWords = getCompletedWordsCount();
       setWpm(Math.floor((completedWords / elapsed) * 60));
     }
-  }, [elapsed, userInput, isActive]);
+  }, [elapsed, userInput, isActive, getCompletedWordsCount]);
 
   const handleStart = () => {
     // No-op: timer starts on first character

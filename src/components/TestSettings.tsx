@@ -24,7 +24,7 @@ const TestSettings: FC<TestSettingsProps> = ({
   return (
     <div className="space-y-4">
       <div className="flex justify-center items-center space-x-8 mb-6">
-        {TIME_OPTIONS.map((time, idx) => (
+        {TIME_OPTIONS.map((time) => (
           <button
             key={time}
             onClick={() => onTimeChange(time)}
