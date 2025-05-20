@@ -33,7 +33,6 @@ const TypingArea: FC<TypingAreaProps> = ({
   const [offset, setOffset] = useState(0);
   const [started, setStarted] = useState(false);
   const [totalMistakes, setTotalMistakes] = useState(0);
-  const [totalCharacters, setTotalCharacters] = useState(0);
   const [lastInputLength, setLastInputLength] = useState(0);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -56,7 +55,6 @@ const TypingArea: FC<TypingAreaProps> = ({
       }
       
       // Update total characters
-      setTotalCharacters(newInput.length);
       setLastInputLength(newInput.length);
       
       // Calculate accuracy based on total mistakes and characters
@@ -73,7 +71,6 @@ const TypingArea: FC<TypingAreaProps> = ({
   useEffect(() => {
     if (!isActive && userInput === '') {
       setTotalMistakes(0);
-      setTotalCharacters(0);
       setLastInputLength(0);
     }
   }, [isActive, userInput]);
